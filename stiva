@@ -1,0 +1,71 @@
+class stiva:
+    def __init__(self, size): # initializarea stivei si marimea acesteia
+        self.stiva = [] # stiva initializata este goala
+        self.size = size
+
+    def push(self, item): # creare functiei "push" pentru a putea introduce date in stiva
+        if len(self.stiva) == self.size: # se verifica daca stiva este plina
+            print("Ai atins numarul maxim de elemente!") # afisam ca stiva este plina
+        else:
+            self.stiva.append(item) # daca nu este plina, informatia este bagata in stiva
+
+    def pop(self): # crearea functiei "pop" care are ca scop extragerea ultimei informatii din stiva
+        result = -1 # daca stiva este goala, nu se sterge nici un element
+
+        if self.stiva == []: # verificam daca stiva este goala
+            print("Stiva este goala!") # afisam ca stiva este goala
+        else:
+            result = self.stiva.pop() # daca nu este goala, ultimul element adaugat se sterge
+
+        return result # returnam rezultatul favorabil
+
+    def display(self): # crearea functiei "display" care are ca scop afisarea stivei
+        if self.stiva == []: # verificam daca stiva este goala, daca este goala se afiseaza ca este goala si se opreste
+            print("Stiva este goala!")
+        else: # daca stiva nu este goala se incarca informatiile si se afiseaza
+            print("Informatiile stivei sunt:")
+            for item in reversed(self.stiva): # cream un for cu functia in reversed
+                print(item) # afisam informatiile stivei
+
+# ----------------------------------------- user side -----------------------------------------
+exit = False # luam o variabila exit pe care o facem sa fie falsa
+
+stiva = stiva(6)#numarul maxim in lista
+while not exit: # cat timp functia exit este falsa se deschide urmatorul meniu
+    print("1) Adauga un element")
+    print("2) Scoate un element")
+    print("3) Afisare")
+    print("4) Iesire")
+    op = input()
+
+    def pushOp(): # primul caz, in care bagam un numar in stiva
+        number = input("Introdu un numar: ")
+        if number.isdigit(): # verificam daca este o variabila de tip int
+            global stiva
+            stiva.push(number) # numarul este introdus in stiva
+        else:
+            print("Numarul este invalid...") # daca informatia introdusa nu este o variabila de tip int nu intra in stiva
+
+    def popOp(): # al doilea caz, in care stergem ultimul element din stiva
+        global stiva
+        n = stiva.pop()
+        if n != -1:
+           print(f"Elementul: {n} a fost sters")#se afiseaza ca elementul a fost sters
+
+
+    def displayOp(): # al 3 lea caz, afisarea
+        global stiva
+        stiva.display() # functia de afisare precedent declarata
+
+    def exitOp(): # al 4 lea caz, inchiderea programului
+        global exit
+        exit = True
+        print("Programul se opreste...")
+
+    switch = { 
+        '1': pushOp,
+        '2': popOp,
+        '3': displayOp
+    }
+
+    switch.get(op, exitOp)()
