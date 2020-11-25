@@ -1,0 +1,91 @@
+class Node:
+    def __init__(self, data=None, next=None):
+        self.data = data
+        self.next = next
+
+class LinkedList:
+    def __init__(self):
+        self.head = None
+
+    def print(self):
+        if self.head is None:
+            print("Lista este goala")
+            return
+        ndata = self.head
+        lista = ''
+        while ndata:
+            lista += str(ndata.data)+' --> ' if ndata.next else str(ndata.data)
+            ndata = ndata.next
+        print(lista)
+
+    def get_length(self):
+        count = 0
+        ndata = self.head
+        while ndata:
+            count+=1
+            ndata = ndata.next
+
+        return count
+
+    def insert_at_beginning(self, data):
+        node = Node(data, self.head)
+        self.head = node
+
+    def insert_at_end(self, data):
+        if self.head is None:
+            self.head = Node(data, None)
+            return
+
+        ndata = self.head
+
+        while ndata.next:
+            ndata = ndata.next
+
+        ndata.next = Node(data, None)
+
+    def insert_at(self, pos, data):
+        if pos<0 or pos>self.get_length():
+            print("Informatie invalida")
+
+        if pos==0:
+            self.insert_at_begining(data)
+            return
+
+        count = 0
+        ndata = self.head
+        while ndata:
+            if count == pos - 1:
+                node = Node(data, ndata.next)
+                ndata.next = node
+                break
+
+            ndata = ndata.next
+            count += 1
+
+    def remove_at(self, pos):
+        if pos<0 or pos>=self.get_length():
+            print("Informatie invalida")
+
+        if pos==0:
+            self.head = self.head.next
+            return
+
+        count = 0
+        ndata = self.head
+        while ndata:
+            if count == pos - 1:
+                ndata.next = ndata.next.next
+                break
+
+            ndata = ndata.next
+            count+=1
+
+    def insert_values(self, data_list):
+        self.head = None
+        for data in data_list:
+            self.insert_at_end(data)
+
+
+if __name__ == '__main__':
+    list = LinkedList()
+
